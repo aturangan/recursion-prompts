@@ -6,27 +6,107 @@
 // denoted by n!, is the product of all positive integers less than or equal to n.
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
+
+
+
+//3! = 3 * 2 * 1
 var factorial = function(n) {
-};
+  var product = n;
+  var count = n - 1;
+
+  //account for if n < 0?
+
+  var multiply = function() {
+    //base case
+
+    if (count === 0) {
+      return product;
+    }
+
+    product *= count; //product = product * (n - 1);
+    //product = 3 * (3 - 1) = 3 * 2 = 6
+      //take product and multiply it by n - 1 again
+    //product = 6 * count = 6 * 1 = 6
+
+    count--;
+    multiply();
+  }
+
+  multiply();
+  return product;
+}
+
+factorial(5);
+
 
 // 2. Compute the sum of an array of integers.
-// sum([1,2,3,4,5,6]); // 21
+// sum([1,2,3, 4, 5, 6]); // 21
+
 var sum = function(array) {
-};
+
+  var total = 0; //total is set to 0 initially
+  var count = 0; //refers to how many numbers we've added to total so far
+
+  var addNumbers = function() {
+    if (count === array.length) {
+      return total;
+    }
+
+    //add the numbers and assign new value to sum
+    total += array[count]; //add array at index count to total
+    //total = 1 + array[1] = 1 + 2 = 3
+    //total = 3 + array[2] = 3 + 3 = 6
+
+    count++; //add 1 to count, count = 1; count = 2; count = 3
+    addNumbers();
+  }
+
+  addNumbers();
+  return total;
+}
+
+sum([1, 2, 3, 4, 5, 6]);
+
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
+
 var arraySum = function(array) {
+  var total = 0;
+  var count = 0;
+
+  var addNumbers = function() {
+    if (count === array.length) {
+      return total;
+    }
+
+    total += count;
+  }
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+
+  if (n % 2 === 0) {
+    return true;
+  } else {
+    return false;
+  }
 };
+
+isEven(5);
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  var sum = 0;
+
+  for (var i = 0; i < n; i++) {
+    sum += i;
+  }
+
+  return sum;
 };
 
 // 6. Get the integers within a range (x, y).
