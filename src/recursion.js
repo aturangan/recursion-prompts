@@ -8,36 +8,17 @@
 // factorial(5); // 120
 
 
-
-//3! = 3 * 2 * 1
 var factorial = function(n) {
-  var product = n;
-  var count = n - 1;
-
-  //account for if n < 0?
-
-  var multiply = function() {
-    //base case
-
-    if (count === 0) {
-      return product;
+    if (n < 0) {
+      return null;
     }
 
-    product *= count; //product = product * (n - 1);
-    //product = 3 * (3 - 1) = 3 * 2 = 6
-      //take product and multiply it by n - 1 again
-    //product = 6 * count = 6 * 1 = 6
-
-    count--;
-    multiply();
-  }
-
-  multiply();
-  return product;
+    if(n == 0) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
 }
-
-factorial(5);
-
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3, 4, 5, 6]); // 21
@@ -72,27 +53,38 @@ sum([1, 2, 3, 4, 5, 6]);
 // arraySum([1,[2,3],[[4]],5]); // 15
 
 var arraySum = function(array) {
-  var total = 0;
-  var count = 0;
+  //iterate through values in array
+  //if value is number, add to total
+  //if value is an array, call recursive function
 
-  var addNumbers = function() {
-    if (count === array.length) {
-      return total;
-    }
-
-    total += count;
-  }
-};
+  //
+  // var total = 0;
+  //
+  // var test = function() {
+  //   for (var i = 0; i < array.length; i++) {
+  //     if (typeof array[i] === 'number') {
+  //       total += array[i];
+  //     } else if (Array.isArray(array)) {
+  //       test(array[i]);
+  //     }
+  //   }
+  //   return total;
+  // }
+  //
+  // test();
+  // return total;
+}
 
 // 4. Check if a number is even.
 var isEven = function(n) {
-
-  if (n % 2 === 0) {
+  if (n === 0) {
     return true;
-  } else {
+  } else if (n === 1) {
     return false;
   }
-};
+
+  return isEven(n - 2);
+}
 
 isEven(5);
 
@@ -100,18 +92,42 @@ isEven(5);
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
-  var sum = 0;
+  //iterate from 0 to n, i++
+  var results = [];
 
-  for (var i = 0; i < n; i++) {
-    sum += i;
+  for (var i = 1; i < n; i++) {
+    results.push(i);
   }
 
-  return sum;
+  var total = 0;
+  var count = 0;
+
+  var sum = function() {
+    if (count === results.length) {
+      return total;
+    }
+
+    total += results[count];
+    count++;
+
+    sum();
+    }
+
+  sum();
+  return total;
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+
+  // var results = [];
+  //
+  // for (var i = x; i < y - 1; i++) {
+  //   results.push(i + 1);
+  // }
+  //
+  // return results;
 };
 
 // 7. Compute the exponent of a number.
@@ -120,6 +136,11 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  if (exp === 0) {
+    return 1;
+  } else {
+    return base * exponent(base, exp - 1);
+  }
 };
 
 // 8. Determine if a number is a power of two.
@@ -127,10 +148,32 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  // if (n === 1) {
+  //   return true;
+  // }
+  //
+  // return n / 2;
+  // powerOfTwo(n / 2);
+
+  //
+  //
+  //
+  // var num = 1;
+  //
+  // if (n === num) {
+  //   return true;
+  // }
+  //
+  // return n / (powerOfTwo(n / 2));
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  if (string.length === 1) {
+    return string;
+  }
+
+  return reverse(string.slice(1)) + string[0]; 
 };
 
 // 10. Write a function that determines if a string is a palindrome.
@@ -148,11 +191,20 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+
+  if (y === 0) {
+    return 0;
+  } else if (y > 0) {
+    return (x + multiply(x, y - 1));
+  } else if (y < 0) {
+    return -multiply(x, -y);
+  }
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods.
 var divide = function(x, y) {
+
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
