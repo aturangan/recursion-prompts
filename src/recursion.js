@@ -121,6 +121,9 @@ var sumBelow = function(n) {
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
 
+
+}
+
   // var results = [];
   //
   // for (var i = x; i < y - 1; i++) {
@@ -148,6 +151,25 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  //2 ^ 0 = 1
+  //2 ^ 1 = 2 
+  //2 ^ 2 = 4
+
+  //if n === 6, 
+  //6 / 2 = 3, invoke recursive function on result
+  //3 / 2 !== 1 evenly 
+
+  // if (n % 2 !== 0) {
+
+  // }
+
+  // if (n === 0 || n === 1) {
+  //   return true; 
+  // }
+
+  // n / 2
+  // return powerOfTwo((n - 1) / 2); 
+
   // if (n === 1) {
   //   return true;
   // }
@@ -173,11 +195,45 @@ var reverse = function(string) {
     return string;
   }
 
-  return reverse(string.slice(1)) + string[0]; 
+  return reverse(string.slice(1)) + string[0];
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  //split characters in a string 
+  //make reversedString equal to a new string
+
+  //count variable 
+  //base case is when reached chars length 
+
+  //abc 
+  //chars = [a, b, c]
+  //count = 2 
+  //reversedString = chars[2] === c 
+  //count = 1 
+  //reversedString = chars[1] === cb 
+  //count = 0 
+  //reversedString = chars[0] === cba 
+  //count = -1 
+  //reversedString === string? false 
+
+
+  var chars = string.split('');
+  var count = chars.length - 1; 
+  var reversedString = ''; 
+
+  var makeReversedString = function() {
+    if (count === -1) {
+      reversedString === string; 
+    }
+
+    reversedString += chars[count]; 
+    count--; 
+    makeReversedString(); 
+  }
+
+  makeReversedString(); 
+  reversedString === string; 
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -186,6 +242,15 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  var remainder = 0;
+
+  if (x < y) {
+    return x;
+  } else {
+    return modulo(x - y, y);
+  }
+
+  return remainder;
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
@@ -204,7 +269,15 @@ var multiply = function(x, y) {
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods.
 var divide = function(x, y) {
-
+  // if (y === 0) {
+  //   return undefined;
+  // } else if (x === 0) {
+  //   return 0;
+  // } else if (y > 0) {
+  //   return (x - divide(x, x - y))
+  // } else if (y < 0) {
+  //   return -divide(x, -y);
+  // }
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -213,6 +286,26 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+
+  var greatest = 0;
+
+  if (x < y) {
+    greatest = x;
+  } else {
+    greatest = y;
+  }
+
+  if (y % x !== 0) {
+    for (var i = x - 1; i > 0; i--) {
+      //test each i if y is divisible by it
+      if (y % i === 0) {
+        greatest = i;
+        return greatest;
+      }
+    }
+  }
+
+  return greatest;
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -220,21 +313,87 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+  var chars1 = str1.split('');
+  var chars2 = str2.split('');
+  var count = 0;
+  var result;
+
+  var testIfIdentical = function() {
+    //base case
+    if (count === chars1.length || result === false) {
+      return result;
+    }
+
+    if (chars1.length === chars2.length) {
+      if (chars1[count] === chars2[count]) {
+        count++;
+        result = true;
+        testIfIdentical();
+      }
+    } else {
+      result = false;
+    }
+  }
+
+  testIfIdentical();
+  return result;
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+
+  var chars = str.split('');
+  var array = [];
+
+  
+
+
+  array.push(createArray(chars + 1))
+
+  return array;
 };
 
 // 17. Reverse the order of an array
+//[1, 2, 3]
 var reverseArr = function(array) {
+  var reversedArray = [];
+  var count = array.length - 1; //count === 2
+
+  var reverse = function() {
+    if (count === -1) {
+      return reversedArray;
+    }
+
+    reversedArray.push(array[count]); //[3, 2, 1]
+    count--; //count = 0
+    reverse();
+  }
+
+  reverse();
+  return reversedArray;
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+  var count = 0;
+  var newArray = [];
+
+  var createArray = function() {
+
+    if (count === length) {
+      return newArray;
+    }
+
+    newArray.push(value); //[7, 7, 7]
+    count++; //count = 3
+    createArray();
+  }
+
+  createArray();
+  return newArray;
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
